@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="en-us" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>
+      ARIA Button
+    </title>
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script>
+      // remove no-js and add 'js' to the HTML
+      document.documentElement.className = document.documentElement.className.replace('no-js', " ");
+      document.documentElement.className += ' js ';
+    </script>
+
+    <style>
+    *,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:arial}*{margin-bottom:0}body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;-moz-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.content-area{padding:20px;margin:auto}.mxw-600{max-width:600px}a{color:#921c2b}a:hover,a:focus{color:#c12f48}.btn{background:#921c2b;border:1px solid #4d0912;color:#fff;cursor:pointer;display:inline-block;font-size:1em;line-height:1;margin-bottom:12px;padding:16px 24px;position:relative;text-align:center;transition:transform .2s, background .2s}.btn:hover,.btn:focus{background:#c12f48;}label{display:inline-block;font-size:.75em;font-weight:bold;margin-bottom:.5em}input[type="text"]{border:1px solid #333;display:block;font-size:1.4em;margin-bottom:1em;min-width:10px;padding:8px;width:100%}section{padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid #aaa}label{margin-top:20px;}button{border:none;}.txt-center{text-align:center;}a.btn{text-decoration:none;}a.btn:hover,a.btn:focus{color:#fff;}p{margin:20px 0;}button:focus{background:red!important;}
+
+      [role="button"][aria-pressed="true"],
+      [role="button"][aria-pressed="true"]:hover,
+      [role="button"][aria-pressed="true"]:focus {
+        background: #f00;
+        color: #fff;
+      }
+      [role="button"] {
+        background: #fff;
+        display: inline-block;
+        color: #000;
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      [role="button"]:hover,
+      [role="button"]:focus {
+        background: #eee;
+        color: #f00;
+        border-color: #000;
+      }
+
+      .bg-ltgreen {
+        background: lightgreen;
+      }
+      .bg-ltgrey {
+        background: #ddd;
+      }
+      .bg-ltblue {
+        background: lightblue;
+      }
+
+    </style>
+  </head>
+
+  <body id="body">
+
+    <div id="page" class="content-area mxw-600">
+      <h1>
+        ARIA Button
+      </h1>
+
+      <p>
+        Use mouse clicks or keyboard controls to change the background color using the following <abbr>ARIA</abbr> buttons. The cascade is very real, so background colors may not change based on what order you press the buttons in.
+      </p>
+
+      <a href="#body" role="button" id="test">
+        Link 'button'
+      </a>
+
+      <a data-controls="nothing" role="button" id="test3">
+        Link 'button' w/out href
+      </a>
+
+      <div id="test2" role="button" data-controls="body">
+        div 'button'
+      </div>
+
+    </div>
+
+    <script>
+      var doc = document;
+      var html = doc.getElementsByTagName('HTML')[0];
+      var body = doc.getElementsByTagName('BODY')[0];
+
+      doc.getElementById('test').addEventListener('click', function () {
+
+        if ( this.getAttribute('aria-pressed') === 'true' ) {
+          this.setAttribute('aria-pressed', 'false');
+          html.classList.remove('bg-ltgreen');
+          body.classList.remove('bg-ltgreen');
+        }
+        else {
+          this.setAttribute('aria-pressed', 'true');
+          html.classList.add('bg-ltgreen');
+          body.classList.add('bg-ltgreen');
+        }
+
+      });
+
+      doc.getElementById('test2').addEventListener('click', function () {
+
+        if ( this.getAttribute('aria-pressed') === 'true' ) {
+          this.setAttribute('aria-pressed', 'false');
+          html.classList.remove('bg-ltblue');
+          body.classList.remove('bg-ltblue');
+        }
+        else {
+          this.setAttribute('aria-pressed', 'true');
+          html.classList.add('bg-ltblue');
+          body.classList.add('bg-ltblue');
+        }
+
+      });
+
+      doc.getElementById('test3').addEventListener('click', function () {
+
+        if ( this.getAttribute('aria-pressed') === 'true' ) {
+          this.setAttribute('aria-pressed', 'false');
+          html.classList.remove('bg-ltgrey');
+          body.classList.remove('bg-ltgrey');
+        }
+        else {
+          this.setAttribute('aria-pressed', 'true');
+          html.classList.add('bg-ltgrey');
+          body.classList.add('bg-ltgrey');
+        }
+
+      });
+
+    </script>
+    <script src="assets/js/a11y.buttons.js"></script>
+  </body>
+</html>
+
