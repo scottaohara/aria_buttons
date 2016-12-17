@@ -9,13 +9,15 @@
   // Meta
   a11yBUTTONS.NS      = "a11yBUTTONS";
   a11yBUTTONS.AUTHOR  = "Scott O'Hara";
-  a11yBUTTONS.VERION  = "0.1.0";
+  a11yBUTTONS.VERION  = "0.2.0";
   a11yBUTTONS.LICENSE = "https://github.com/scottaohara/select-to-datalist/blob/master/LICENSE";
 
   var widget        = doc.querySelectorAll('[role="button"]');
   var widgetCount   = widget.length;
 
-  // Create accordion instances
+  /**
+   * Create Button Instances
+   */
   a11yBUTTONS.create = function () {
 
     // setup / cache vars
@@ -24,7 +26,6 @@
 
     // run through all instances of role="button"
     for ( i = 0; i < widgetCount; i++ ) {
-
       self = widget[i];
 
       // if the element doesn't have a tabindex or an href,
@@ -37,7 +38,6 @@
       // that may be on purpose.  BUT since we're trying to cover
       // all of our bases here...
       if ( !self.hasAttribute('aria-controls') ) {
-
         var ac = 'aria-controls';
 
         // the script will now check to see if there's a data-controls
@@ -48,14 +48,22 @@
           self.setAttribute(ac, self.getAttribute('data-controls'));
         }
         else if ( self.hasAttribute('href') ) {
-          self.setAttribute(ac, self.getAttribute('href').split('#')[1] );
+          self.setAttribute(ac, self.getAttribute('href').split('#')[1]);
         }
 
-      }
+      } // if
 
       // on keypress, run the keytrolls function
-      self.addEventListener('keypress', a11yBUTTONS.keytrolls );
+      self.addEventListener('keypress', a11yBUTTONS.keytrolls);
 
+      // if a link has been converted to a button, then focus should
+      // stay on the button when clicked/pressed. Check to see if
+      // the element has an href, and if so, preventDefault.
+      if ( self.hasAttribute('href') ) {
+        self.addEventListener('click', function ( e ) {
+          e.preventDefault();
+        });
+      }
 
       // cleanup data attributes that have served their purpose
       self.removeAttribute('data-controls');
@@ -65,6 +73,9 @@
   }; // a11yBUTTONS.create()
 
 
+  /**
+   * Keyboard Controls for the 'Buttons'
+   */
   a11yBUTTONS.keytrolls = function ( e ) {
 
     var keyCode = e.keyCode || e.which;
@@ -83,6 +94,9 @@
   }; // a11yBUTTONS.keytrolls()
 
 
+  /**
+   * Initialize Buttons Functions
+   */
   a11yBUTTONS.init = function () {
 
     a11yBUTTONS.create();
