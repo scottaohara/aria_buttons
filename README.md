@@ -19,10 +19,10 @@ Well, as long as you're appropriately setting elements that have a ```role="butt
 If you __don't__ want to set ARIA buttons to work correctly in each of your scripts, and want to use a single script to do it for you once and for all, then maybe this script is for you!
 
 
-## License & Stuff
+### License & Such
 
-This script was written by [Scott O'Hara](https://github.com/scottaohara).
+This script was written by [Scott O'Hara](https://twitter.com/scottohara).
 
 It has an [MIT](https://github.com/scottaohara/accessible-components/blob/master/LICENSE.md) license.
 
-Have fun with it and file an issue or pull requerst if you have any ideas for improvements.
+Do with it what you will :)
