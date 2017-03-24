@@ -1,5 +1,4 @@
 ;(function ( w, doc ) {
-
   //enable strict mode
   'use strict';
 
@@ -9,17 +8,17 @@
   // Meta
   a11yBUTTONS.NS      = "a11yBUTTONS";
   a11yBUTTONS.AUTHOR  = "Scott O'Hara";
-  a11yBUTTONS.VERION  = "0.2.0";
+  a11yBUTTONS.VERION  = "0.3.0";
   a11yBUTTONS.LICENSE = "https://github.com/scottaohara/select-to-datalist/blob/master/LICENSE";
 
-  var widget        = doc.querySelectorAll('[role="button"]');
-  var widgetCount   = widget.length;
-
+  
+  
   /**
    * Create Button Instances
    */
   a11yBUTTONS.create = function () {
-
+    var widget      = doc.querySelectorAll('[role="button"]');
+    var widgetCount = widget.length;
     // setup / cache vars
     var self;
     var i;
@@ -50,7 +49,6 @@
         else if ( self.hasAttribute('href') ) {
           self.setAttribute(ac, self.getAttribute('href').split('#')[1]);
         }
-
       } // if
 
       // on keypress, run the keytrolls function
@@ -67,9 +65,7 @@
 
       // cleanup data attributes that have served their purpose
       self.removeAttribute('data-controls');
-
     } // for(widgetCount)
-
   }; // a11yBUTTONS.create()
 
 
@@ -77,32 +73,32 @@
    * Keyboard Controls for the 'Buttons'
    */
   a11yBUTTONS.keytrolls = function ( e ) {
-
     var keyCode = e.keyCode || e.which;
 
     switch ( keyCode ) {
-
       // enter or space
       case 32:
       case 13:
         e.preventDefault();
         e.target.click();
         break;
-
+        
+      default:
+        break;
     } // switch
-
   }; // a11yBUTTONS.keytrolls()
 
 
+  
   /**
    * Initialize Buttons Functions
    */
   a11yBUTTONS.init = function () {
-
     a11yBUTTONS.create();
-
   }; // a11yBUTTONS.init()
 
+  
+  
   a11yBUTTONS.init();
 
 })( this, this.document );
