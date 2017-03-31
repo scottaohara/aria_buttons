@@ -1,30 +1,32 @@
-;(function ( w, doc ) {
+;(function ( w, doc, undefined ) {
   //enable strict mode
   'use strict';
 
-  // Local object for method references
-  var a11yBUTTONS = {};
+  /**
+   * Local object for method references
+   * and define script meta-data
+   */
+  var ARIAbuttons = {};
+  w.ARIAbuttons   = ARIAbuttons; // make functions available outside of iffe
 
-  // Meta
-  a11yBUTTONS.NS      = "a11yBUTTONS";
-  a11yBUTTONS.AUTHOR  = "Scott O'Hara";
-  a11yBUTTONS.VERION  = "0.3.0";
-  a11yBUTTONS.LICENSE = "https://github.com/scottaohara/select-to-datalist/blob/master/LICENSE";
+  ARIAbuttons.NS      = 'ARIAbuttons';
+  ARIAbuttons.AUTHOR  = 'Scott O\'Hara';
+  ARIAbuttons.VERION  = '0.3.1';
+  ARIAbuttons.LICENSE = 'https://github.com/scottaohara/select-to-datalist/blob/master/LICENSE';
 
-  
-  
+
+
   /**
    * Create Button Instances
    */
-  a11yBUTTONS.create = function () {
-    var widget      = doc.querySelectorAll('[role="button"]');
-    var widgetCount = widget.length;
+  ARIAbuttons.create = function () {
     // setup / cache vars
+    var widget = doc.querySelectorAll('[role="button"]');
     var self;
     var i;
 
     // run through all instances of role="button"
-    for ( i = 0; i < widgetCount; i++ ) {
+    for ( i = 0; i < widget.length; i++ ) {
       self = widget[i];
 
       // if the element doesn't have a tabindex or an href,
@@ -52,7 +54,7 @@
       } // if
 
       // on keypress, run the keytrolls function
-      self.addEventListener('keypress', a11yBUTTONS.keytrolls);
+      self.addEventListener('keypress', ARIAbuttons.keytrolls);
 
       // if a link has been converted to a button, then focus should
       // stay on the button when clicked/pressed. Check to see if
@@ -62,17 +64,14 @@
           e.preventDefault();
         });
       }
-
-      // cleanup data attributes that have served their purpose
-      self.removeAttribute('data-controls');
-    } // for(widgetCount)
-  }; // a11yBUTTONS.create()
+    } // for(widget.length)
+  }; // ARIAbuttons.create()
 
 
   /**
    * Keyboard Controls for the 'Buttons'
    */
-  a11yBUTTONS.keytrolls = function ( e ) {
+  ARIAbuttons.keytrolls = function ( e ) {
     var keyCode = e.keyCode || e.which;
 
     switch ( keyCode ) {
@@ -82,23 +81,25 @@
         e.preventDefault();
         e.target.click();
         break;
-        
+
       default:
         break;
     } // switch
-  }; // a11yBUTTONS.keytrolls()
+  }; // ARIAbuttons.keytrolls()
 
 
-  
+
   /**
    * Initialize Buttons Functions
+   * if expanding this script, place any other
+   * initialize functions within here.
    */
-  a11yBUTTONS.init = function () {
-    a11yBUTTONS.create();
-  }; // a11yBUTTONS.init()
+  ARIAbuttons.init = function () {
+    ARIAbuttons.create();
+  }; // ARIAbuttons.init()
 
-  
-  
-  a11yBUTTONS.init();
 
-})( this, this.document );
+  // go go JavaScript
+  ARIAbuttons.init();
+
+})( window, document );
