@@ -1,4 +1,4 @@
-# A11Y Buttons
+# ARIA Buttons
 
 Use this script in combination with other scripts to reduce the amount of times one needs to set ```role="button"``` elements to accept both <kbd>Space</kbd> and <kbd>Enter</kbd> keys.
 
