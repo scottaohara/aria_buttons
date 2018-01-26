@@ -1,5 +1,4 @@
 ;(function ( w, doc, undefined ) {
-  //enable strict mode
   'use strict';
 
   /**
@@ -12,15 +11,13 @@
   ARIAbuttons.NS      = 'ARIAbuttons';
   ARIAbuttons.AUTHOR  = 'Scott O\'Hara';
   ARIAbuttons.VERION  = '0.3.1';
-  ARIAbuttons.LICENSE = 'https://github.com/scottaohara/select-to-datalist/blob/master/LICENSE';
-
+  ARIAbuttons.LICENSE = 'https://github.com/scottaohara/accessible_components/blob/master/LICENSE.md';
 
 
   /**
    * Create Button Instances
    */
   ARIAbuttons.create = function () {
-    // setup / cache vars
     var widget = doc.querySelectorAll('[role="button"]');
     var self;
     var i;
@@ -29,8 +26,7 @@
     for ( i = 0; i < widget.length; i++ ) {
       self = widget[i];
 
-      // if the element doesn't have a tabindex or an href,
-      // it is going to need one, so add the attribute
+      // If there is no tabindex or href, add a tabindex="0"
       if ( !self.hasAttribute('tabindex') && !self.hasAttribute('href') ) {
         self.setAttribute('tabindex', '0');
       }
@@ -86,7 +82,6 @@
         break;
     } // switch
   }; // ARIAbuttons.keytrolls()
-
 
 
   /**
