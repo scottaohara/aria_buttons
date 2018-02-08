@@ -10,7 +10,7 @@
 
   ARIAbuttons.NS      = 'ARIAbuttons';
   ARIAbuttons.AUTHOR  = 'Scott O\'Hara';
-  ARIAbuttons.VERION  = '0.3.1';
+  ARIAbuttons.VERION  = '0.4.0';
   ARIAbuttons.LICENSE = 'https://github.com/scottaohara/accessible_components/blob/master/LICENSE.md';
 
 
