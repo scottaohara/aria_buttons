@@ -31,13 +31,12 @@
         self.setAttribute('tabindex', '0');
       }
 
-      // if the element doesn't have an aria-controls attribute,
-      // that may be on purpose.  BUT since we're trying to cover
-      // all of our bases here...
+      // If the element doesn't have an aria-controls attribute, that may be on purpose.
+      // BUT to try and cover all of our bases here...
       if ( !self.hasAttribute('aria-controls') ) {
         var ac = 'aria-controls';
 
-        // the script will now check to see if there's a data-controls
+        // The script will check to see if there's a data-controls
         // or href attribute exist on the element.  If either of these do,
         // then that means that they should have an aria-controls set to
         // the value of either of those attributes.
@@ -47,7 +46,25 @@
         else if ( self.hasAttribute('href') ) {
           self.setAttribute(ac, self.getAttribute('href').split('#')[1]);
         }
+
+        // clean up DOM
+        self.removeAttribute('data-controls');
       } // if
+
+      // Check to see if this is meant to be a toggle button of some sort
+      if ( !self.hasAttribute('aria-pressed') ) {
+        var ap = 'aria-pressed';
+
+        if ( self.hasAttribute('data-pressed') && self.getAttribute('data-pressed') === 'true' ) {
+          self.setAttribute(ap, 'true');
+        }
+        else if ( self.hasAttribute('data-pressed') ) {
+          self.setAttribute(ap, 'false');
+        }
+
+        // clean up DOM
+        self.removeAttribute('data-pressed');
+      }
 
       // on keypress, run the keytrolls function
       self.addEventListener('keypress', ARIAbuttons.keytrolls);

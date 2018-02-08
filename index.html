@@ -63,15 +63,15 @@
         Use mouse clicks or keyboard controls to change the background color using the following <abbr>ARIA</abbr> buttons. The cascade is very real, so background colors may not change based on what order you press the buttons in.
       </p>
 
-      <a href="#body" role="button" id="test">
+      <a href="#body" data-pressed role="button" id="test">
         Link 'button'
       </a>
 
-      <a data-controls="nothing" role="button" id="test3">
+      <a data-controls="nothing" data-pressed role="button" id="test3">
         Link 'button' w/out href
       </a>
 
-      <div id="test2" role="button" data-controls="body">
+      <div id="test2" role="button" data-pressed data-controls="body">
         div 'button'
       </div>
 
