@@ -1,5 +1,4 @@
 # ARIA Buttons
-
 Use this script in combination with other scripts to reduce the amount of times one needs to set `role="button"` elements to accept both <kbd>Space</kbd> and <kbd>Enter</kbd> keys.
 
 
@@ -17,7 +16,7 @@ If the element has a `data-pressed` with an empty string, or any other value tha
 
 
 ## Why do you need this?  
-As long as you're appropriately setting elements that have a `role="button"` to work with the appropriate keyboard controls in your own scripts, then you likely don't need this.
+As long as you're setting up `role="button"` elements to work with the appropriate keyboard controls in your own scripts, then you likely don't need this.
 
 If you __don't__ want to set ARIA buttons to work correctly in each of your scripts, and want to use a single script to do it for you once and for all, then maybe this script is for you!
 

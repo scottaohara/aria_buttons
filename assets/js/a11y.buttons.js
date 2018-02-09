@@ -6,13 +6,12 @@
    * and define script meta-data
    */
   var ARIAbuttons = {};
-  w.ARIAbuttons   = ARIAbuttons; // make functions available outside of iffe
+  w.ARIAbuttons   = ARIAbuttons;
 
   ARIAbuttons.NS      = 'ARIAbuttons';
   ARIAbuttons.AUTHOR  = 'Scott O\'Hara';
-  ARIAbuttons.VERION  = '0.5.0';
-  ARIAbuttons.LICENSE = 'https://github.com/scottaohara/accessible_components/blob/master/LICENSE.md';
-
+  ARIAbuttons.VERION  = '1.0.0';
+  ARIAbuttons.LICENSE = 'https://github.com/scottaohara/aria_buttons/blob/master/LICENSE';
 
   /**
    * Create Button Instances
@@ -22,24 +21,31 @@
     var self;
     var i;
 
-    // run through all instances of role="button"
+    // Setup all instances of role="button"
     for ( i = 0; i < widget.length; i++ ) {
       self = widget[i];
 
-      // If there is no tabindex or href, add a tabindex="0"
+      /**
+       * If there is no tabindex or href, add a tabindex="0".
+       * Buttons need to be focusable by keyboard users.
+       */
       if ( !self.hasAttribute('tabindex') && !self.hasAttribute('href') ) {
         self.setAttribute('tabindex', '0');
       }
 
-      // If the element doesn't have an aria-controls attribute, that may be on purpose.
-      // BUT to try and cover all of our bases here...
+      /**
+       * If a "button" doesn't have an aria-controls attribute,
+       * do additional checks to see if it *should* have one.
+       */
       if ( !self.hasAttribute('aria-controls') ) {
         var ac = 'aria-controls';
 
-        // The script will check to see if there's a data-controls
-        // or href attribute exist on the element.  If either of these do,
-        // then that means that they should have an aria-controls set to
-        // the value of either of those attributes.
+        /**
+         * Check for the presence of an href (if the element was a link),
+         * or check for a data-controls attribute. If one of these exist,
+         * get the current value and use it as the IDREF for the
+         * aria-controls attribute.
+         */
         if ( self.hasAttribute('data-controls') ) {
           self.setAttribute(ac, self.getAttribute('data-controls'));
         }
@@ -51,7 +57,13 @@
         self.removeAttribute('data-controls');
       } // if
 
-      // Check to see if this is meant to be a toggle button of some sort
+      /**
+       * Check to see if this is meant to be a toggle button.
+       *
+       * If the element has an aria-pressed already, move on. If it doesn't,
+       * check for the presence of a data-pressed attribute. If one exists,
+       * add an aria-pressed with the appropriate value.
+       */
       if ( !self.hasAttribute('aria-pressed') ) {
         var ap = 'aria-pressed';
 
@@ -64,9 +76,11 @@
 
         // clean up DOM
         self.removeAttribute('data-pressed');
-      }
+      } // if
 
-      // on keypress, run the keytrolls function
+      /**
+       * Run event listeners for each instance.
+       */
       self.addEventListener('keypress', ARIAbuttons.keytrolls, false);
       self.addEventListener('click', ARIAbuttons.ariaPressed, false);
     } // for(widget.length)
@@ -89,9 +103,12 @@
 
       default:
         break;
-    } // switch
+    }
   }; // ARIAbuttons.keytrolls();
 
+  /**
+   * Toggle the value of aria-pressed.
+   */
   ARIAbuttons.ariaPressed = function ( e ) {
     e.preventDefault();
 
@@ -105,14 +122,13 @@
 
 
   /**
-   * Initialize Buttons Functions
-   * if expanding this script, place any other
+   * Initialize Buttons Functions.
+   * If expanding this script, place any other
    * initialize functions within here.
    */
   ARIAbuttons.init = function () {
     ARIAbuttons.create();
-  }; // ARIAbuttons.init()
-
+  };
 
   // go go JavaScript
   ARIAbuttons.init();
