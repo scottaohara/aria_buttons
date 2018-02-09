@@ -83,48 +83,36 @@
       var body = doc.getElementsByTagName('BODY')[0];
 
       doc.getElementById('test').addEventListener('click', function () {
-
         if ( this.getAttribute('aria-pressed') === 'true' ) {
-          this.setAttribute('aria-pressed', 'false');
           html.classList.remove('bg-ltgreen');
           body.classList.remove('bg-ltgreen');
         }
         else {
-          this.setAttribute('aria-pressed', 'true');
           html.classList.add('bg-ltgreen');
           body.classList.add('bg-ltgreen');
         }
-
       });
 
       doc.getElementById('test2').addEventListener('click', function () {
-
         if ( this.getAttribute('aria-pressed') === 'true' ) {
-          this.setAttribute('aria-pressed', 'false');
           html.classList.remove('bg-ltblue');
           body.classList.remove('bg-ltblue');
         }
         else {
-          this.setAttribute('aria-pressed', 'true');
           html.classList.add('bg-ltblue');
           body.classList.add('bg-ltblue');
         }
-
       });
 
       doc.getElementById('test3').addEventListener('click', function () {
-
         if ( this.getAttribute('aria-pressed') === 'true' ) {
-          this.setAttribute('aria-pressed', 'false');
           html.classList.remove('bg-ltgrey');
           body.classList.remove('bg-ltgrey');
         }
         else {
-          this.setAttribute('aria-pressed', 'true');
           html.classList.add('bg-ltgrey');
           body.classList.add('bg-ltgrey');
         }
-
       });
 
     </script>

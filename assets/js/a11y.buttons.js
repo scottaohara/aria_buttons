@@ -10,7 +10,7 @@
 
   ARIAbuttons.NS      = 'ARIAbuttons';
   ARIAbuttons.AUTHOR  = 'Scott O\'Hara';
-  ARIAbuttons.VERION  = '0.4.0';
+  ARIAbuttons.VERION  = '0.5.0';
   ARIAbuttons.LICENSE = 'https://github.com/scottaohara/accessible_components/blob/master/LICENSE.md';
 
 
@@ -67,16 +67,8 @@
       }
 
       // on keypress, run the keytrolls function
-      self.addEventListener('keypress', ARIAbuttons.keytrolls);
-
-      // if a link has been converted to a button, then focus should
-      // stay on the button when clicked/pressed. Check to see if
-      // the element has an href, and if so, preventDefault.
-      if ( self.hasAttribute('href') ) {
-        self.addEventListener('click', function ( e ) {
-          e.preventDefault();
-        });
-      }
+      self.addEventListener('keypress', ARIAbuttons.keytrolls, false);
+      self.addEventListener('click', ARIAbuttons.ariaPressed, false);
     } // for(widget.length)
   }; // ARIAbuttons.create()
 
@@ -98,7 +90,18 @@
       default:
         break;
     } // switch
-  }; // ARIAbuttons.keytrolls()
+  }; // ARIAbuttons.keytrolls();
+
+  ARIAbuttons.ariaPressed = function ( e ) {
+    e.preventDefault();
+
+    if ( this.getAttribute('aria-pressed') === 'true' ) {
+      this.setAttribute('aria-pressed', 'false');
+    }
+    else {
+      this.setAttribute('aria-pressed', 'true');
+    }
+  } // ARIAbuttons.ariaPressed()
 
 
   /**
