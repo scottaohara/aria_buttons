@@ -54,7 +54,7 @@
 
   <body id="body">
 
-    <div id="page" class="content-area mxw-600">
+    <main id="page" class="content-area mxw-600">
       <h1>
         ARIA Button
       </h1>
@@ -63,19 +63,28 @@
         Use mouse clicks or keyboard controls to change the background color using the following <abbr>ARIA</abbr> buttons. The cascade is very real, so background colors may not change based on what order you press the buttons in.
       </p>
 
-      <a href="#body" data-pressed role="button" id="test">
-        Link 'button'
-      </a>
+      <p>
+        <a href="#body" data-pressed role="button" id="test">
+          Link 'button'
+        </a>
 
-      <a data-controls="nothing" data-pressed role="button" id="test3">
-        Link 'button' w/out href
-      </a>
+        <a data-controls="nothing" data-pressed role="button" id="test3">
+          Link 'button' w/out <code>href</code>
+        </a>
 
-      <div id="test2" role="button" data-pressed data-controls="body">
-        div 'button'
-      </div>
+        <span id="test2" role="button" aria-pressed="false" data-controls="body">
+          span 'button'
+        </span>
+      </p>
 
-    </div>
+      <hr>
+
+      <p>
+        <a href="https://github.com/scottaohara/aria_buttons">
+          View source on GitHub
+        </a>
+      </p>
+    </main>
 
     <script>
       var doc = document;
