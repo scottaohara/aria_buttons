@@ -10,7 +10,7 @@
 
   ARIAbuttons.NS      = 'ARIAbuttons';
   ARIAbuttons.AUTHOR  = 'Scott O\'Hara';
-  ARIAbuttons.VERION  = '1.0.0';
+  ARIAbuttons.VERION  = '1.1.0';
   ARIAbuttons.LICENSE = 'https://github.com/scottaohara/aria_buttons/blob/master/LICENSE';
 
   /**
@@ -26,11 +26,11 @@
       self = widget[i];
 
       /**
-       * If there is no tabindex or href, add a tabindex="0".
        * Buttons need to be focusable by keyboard users.
+       * If no tabIndex was set, set one.
        */
-      if ( !self.hasAttribute('tabindex') && !self.hasAttribute('href') ) {
-        self.setAttribute('tabindex', '0');
+      if ( !self.hasAttribute('tabindex') ) {
+        self.tabIndex = 0;
       }
 
       /**
@@ -58,6 +58,12 @@
       } // if
 
       /**
+       * If an element started off as a <a href...> remove the href attribute.
+       * Buttons should not return a context menu for links, if right clicked.
+       */
+      self.removeAttribute('href');
+
+      /**
        * Check to see if this is meant to be a toggle button.
        *
        * If the element has an aria-pressed already, move on. If it doesn't,
@@ -81,7 +87,7 @@
       /**
        * Run event listeners for each instance.
        */
-      self.addEventListener('keypress', ARIAbuttons.keytrolls, false);
+      self.addEventListener('keypress', ARIAbuttons.keyEvents, false);
       self.addEventListener('click', ARIAbuttons.ariaPressed, false);
     } // for(widget.length)
   }; // ARIAbuttons.create()
@@ -90,7 +96,7 @@
   /**
    * Keyboard Controls for the 'Buttons'
    */
-  ARIAbuttons.keytrolls = function ( e ) {
+  ARIAbuttons.keyEvents = function ( e ) {
     var keyCode = e.keyCode || e.which;
 
     switch ( keyCode ) {
@@ -104,7 +110,7 @@
       default:
         break;
     }
-  }; // ARIAbuttons.keytrolls();
+  }; // ARIAbuttons.keyEvents();
 
   /**
    * Toggle the value of aria-pressed.
