@@ -1,0 +1,28 @@
+[role="button"] {
+  background: #fff;
+  border: 1px solid #555;
+  color: #000;
+  cursor: default;
+  display: inline-block;
+  padding: .5em;
+  margin: 0;
+  text-decoration: none;
+}
+
+[role="button"]:not([aria-disabled="true"]):hover,
+[role="button"]:not([aria-disabled="true"]):focus {
+  background: #eee;
+  color: #000;
+  border-color: #000;
+  outline: 2px solid darkRed;
+  outline-offset: 2px;
+}
+
+[role="button"][aria-pressed="true"] {
+  background: darkRed;
+  color: #fff;
+}
+
+[role="button"][aria-disabled="true"] {
+  opacity: .5;
+}
