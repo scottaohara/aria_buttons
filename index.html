@@ -2,126 +2,173 @@
 <html lang="en" class="no-js">
   <head>
     <meta charset="utf-8">
-    <title>
-      ARIA Button
-    </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ARIA Buttons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
-      // remove no-js and add 'js' to the HTML
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     </script>
-
-    <style>
-    *,*:after,*:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-family:arial}*{margin-bottom:0}body,html{background:#fafafa;color:#450c13;font-size:20px;line-height:1.3;margin:0;padding:0;-moz-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}.content-area{padding:20px;margin:auto}.mxw-600{max-width:600px}a{color:#921c2b}a:hover,a:focus{color:#c12f48}button{border:none;}a.btn{text-decoration:none;}p{margin:20px 0;}button:focus{background:red!important;}
-
-      [role="button"][aria-pressed="true"],
-      [role="button"][aria-pressed="true"]:hover,
-      [role="button"][aria-pressed="true"]:focus {
-        background: #f00;
-        color: #fff;
-      }
-      [role="button"] {
-        background: #fff;
-        display: inline-block;
-        color: #000;
-        border: 1px solid #ccc;
-        padding: 8px;
-        text-decoration: none;
-        cursor: default;
-      }
-
-      [role="button"]:hover,
-      [role="button"]:focus {
-        background: #eee;
-        color: #f00;
-        border-color: #000;
-      }
-
-      .bg-ltgreen {
-        background: lightgreen;
-      }
-      .bg-ltgrey {
-        background: #ddd;
-      }
-      .bg-ltblue {
-        background: lightblue;
-      }
-    </style>
+    <link rel="stylesheet" href="https://scottaohara.github.io/a11y_styled_form_controls/src/assets/css/--demo-only--.css">
+    <link rel="stylesheet" href="https://scottaohara.github.io/a11y_styled_form_controls/src/assets/css/--shared--.css">
+    <link rel="stylesheet" href="css/button.css">
   </head>
 
   <body id="body">
+    <div id="page" class="demo-wrap">
+      <main>
+        <div class="demo">
+          <div class="demo-wrap__header">
+            <h1 style="margin-top: 0;">
+              <abbr title="Accessible Rich Internet Applications">ARIA</abbr> Buttons demonstration
+            </h1>
+            <p>Published: <span>November 26, 2016</span></p>
+            <p>Last updated: <span>December 11, 2021</span></p>
+            <div>
+              <a href="https://github.com/scottaohara/aria_buttons">See source on GitHub</a>
+            </div>
+          </div>
 
-    <main id="page" class="content-area mxw-600">
-      <h1>
-        ARIA Button
-      </h1>
+          <h2>
+            Pattern Demos
+          </h2>
 
-      <p>
-        Use mouse clicks or keyboard controls to change the background color using the following <abbr title="accessible rich internet applications">ARIA</abbr> buttons. The cascade is very real, so background colors may not change based on what order you press the buttons in.
-      </p>
+          <p>
+            Using an <code>&lt;a href></code> as a base to make a button:
+          </p>
+          <div>
+            <a id="test1" href="#" role="button">Do a thing</a>
+            <output style="margin-left: 1em;"></output>
+          </div>
+          <p>
+            Using a <code>&lt;span></code> as a base to make a toggle button:
+          </p>
+          <div>
+            <span id="test2" role="button" aria-pressed="false">
+              Bold Text
+            </span>
+            <span style="margin-left: 1em;">
+              <span id=test2result>I'm some text</span>
+            </span>
+          </div>
+          <p>
+            Using a <code>&lt;c-button></code> custom element to make a toggle button:
+          </p>
+          <div id="test3result">
+            <c-button id="test3" role="button" aria-pressed="false">
+              Enable Dark Mode
+            </c-button>
+          </div>
 
-      <p>
-        <a href="#body" data-pressed role="button" id="test">
-          Link 'button'
-        </a>
+          <p>
+            Using a <code>&lt;span></code> as a base for a disabled button:
+          </p>
+          <div>
+            <span id="test4" tabindex="0" role="button" aria-disabled="true">
+              Can't do anything
+            </span>
+          </div>
 
-        <a data-controls="nothing" data-pressed role="button" id="test3">
-          Link 'button' w/out <code>href</code>
-        </a>
 
-        <span id="test2" role="button" aria-pressed="false" data-controls="body">
-          span 'button'
-        </span>
-      </p>
+          <section class="demo-details">
+            <h3>
+              Pattern Details
+            </h3>
 
-      <hr>
+            <details>
+              <summary>Pattern Markup</summary>
+              <pre><code>&lt;a id="test1" href="#" role="button">Do a thing&lt;/a>
+&lt;output>&lt;/output>
 
-      <p>
-        <a href="https://github.com/scottaohara/aria_buttons">
-          View source on GitHub
-        </a>
-      </p>
-    </main>
+&lt;span id="test2" role="button" aria-pressed="false">
+  Enable a setting
+&lt;/span>
 
+&lt;c-button id="test3" role="button" aria-pressed="false">
+  Enable Dark Mode
+&lt;/c-button>
+
+&lt;span id="test4" tabindex="0" role="button" aria-disabled="true">
+  Can't do anything
+&lt;/span></code></pre>
+            </details>
+
+            <p>This script simply runs through the DOM and looks for instances of <code>role=button</code> and then does the following:</p>
+            <ul>
+              <li>If they lack a <code>tabindex</code>, one is assigned so the buttons are keyboard focusable, <strong>unless</strong> there is a <code>aria-disabled=true</code>.</li>
+              <li>If a <code>role=button</code> also has an <code>aria-pressed</code> attribute, then a toggle event is added to those buttons with an "click" event.</li>
+              <li>A <code>keydown</code> event listener is added to all the faux buttons.  It ensures that <kbd>Space</kbd> and <kbd>Enter</kbd> keys will activate the button. If those keys are pressed, a <code>click()</code> is used to simulate the click event for the buttons.</li>
+            </ul>
+            <p>
+              You should really just use a <code>&lt;button></code> element instead. You won't need the majority of this script then, and you'd get automatic Windows High Contrast Mode styling (which I have not done anything to provide for with these demos).
+            </p>
+          </section>
+
+          <h3>
+            Continue reading
+          </h3>
+          <ul>
+            <li><a href="https://w3c.github.io/aria-practices/#button">ARIA Authoring Practices 1.2: Button</a></li>
+          </ul>
+        </div>
+      </main>
+
+    </div>
+    <script src="index.js"></script>
     <script>
-      var doc = document;
+      const selector = '[role="button"]';
+      const els = document.querySelectorAll(selector);
+
+      for ( let i = 0; i < els.length; i++ ) {
+        const dis = new ariaButton( els[i] );
+      }
+
+      // demos
+      const doc = document;
       var html = doc.getElementsByTagName('HTML')[0];
       var body = doc.getElementsByTagName('BODY')[0];
 
-      doc.getElementById('test').addEventListener('click', function () {
-        if ( this.getAttribute('aria-pressed') === 'true' ) {
-          html.classList.remove('bg-ltgreen');
-          body.classList.remove('bg-ltgreen');
+      const t1 = doc.getElementById('test1');
+      const output = doc.querySelector('output');
+      const msg1 = "I did a thing";
+      const msg2 = "I did another thing";
+      let currentMsg = msg1;
+
+      t1.addEventListener('click', function () {
+        output.textContent = currentMsg;
+        currentMsg = currentMsg == msg1 ? msg2 : msg1;
+      });
+
+
+      const t2 = doc.getElementById('test2');
+      const t2r = doc.getElementById('test2result');
+      let isBold = false;
+
+      t2.addEventListener('click', function () {
+        if ( isBold ) {
+          t2r.style = 'font-weight: normal;';
+          isBold = false;
         }
         else {
-          html.classList.add('bg-ltgreen');
-          body.classList.add('bg-ltgreen');
+          t2r.style = 'font-weight: bold;';
+          isBold = true;
         }
       });
 
-      doc.getElementById('test2').addEventListener('click', function () {
-        if ( this.getAttribute('aria-pressed') === 'true' ) {
-          html.classList.remove('bg-ltblue');
-          body.classList.remove('bg-ltblue');
+
+      const t3 = doc.getElementById('test3');
+      const t3r = doc.getElementById('test3result');
+      let isDark = false;
+
+      t3.addEventListener('click', function () {
+        if ( isDark ) {
+          t3r.style = 'background: transparent;';
+          isDark = false;
         }
         else {
-          html.classList.add('bg-ltblue');
-          body.classList.add('bg-ltblue');
+          t3r.style = 'background: #000; box-shadow: 0 0 0 8px #000';
+          isDark = true;
         }
       });
 
-      doc.getElementById('test3').addEventListener('click', function () {
-        if ( this.getAttribute('aria-pressed') === 'true' ) {
-          html.classList.remove('bg-ltgrey');
-          body.classList.remove('bg-ltgrey');
-        }
-        else {
-          html.classList.add('bg-ltgrey');
-          body.classList.add('bg-ltgrey');
-        }
-      });
     </script>
-    <script src="index.js"></script>
   </body>
 </html>
-
