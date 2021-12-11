@@ -1,142 +1,71 @@
-;(function ( w, doc, undefined ) {
-  'use strict';
-
+(function ( w, doc, undefined ) {
   /**
-   * Local object for method references
-   * and define script meta-data
+   * ARIA Buttons
+   *
+   * Author: Scott O'Hara
+   * Version: 2.0.0
+   * License: https://github.com/scottaohara/aria_buttons/blob/master/LICENSE
    */
-  var ARIAbuttons = {};
-  w.ARIAbuttons   = ARIAbuttons;
 
-  ARIAbuttons.NS      = 'ARIAbuttons';
-  ARIAbuttons.AUTHOR  = 'Scott O\'Hara';
-  ARIAbuttons.VERION  = '1.1.0';
-  ARIAbuttons.LICENSE = 'https://github.com/scottaohara/aria_buttons/blob/master/LICENSE';
+  const ariaButton = function ( inst, options ) {
+    const el = inst;
+    let isToggle;
 
-  /**
-   * Create Button Instances
-   */
-  ARIAbuttons.create = function () {
-    var widget = doc.querySelectorAll('[role="button"]');
-    var self;
-    var i;
+    /**
+     * Initialize the button instance
+     */
+    const init = function () {
+      setupButton();
 
-    // Setup all instances of role="button"
-    for ( i = 0; i < widget.length; i++ ) {
-      self = widget[i];
-
-      /**
-       * Buttons need to be focusable by keyboard users.
-       * If no tabIndex was set, set one.
-       */
-      if ( !self.hasAttribute('tabindex') ) {
-        self.tabIndex = 0;
+      if ( isToggle ) {
+        el.addEventListener('click', toggleEvent);
       }
+      el.addEventListener('keydown', keyEvents);
+    };
 
-      /**
-       * If a "button" doesn't have an aria-controls attribute,
-       * do additional checks to see if it *should* have one.
-       */
-      if ( !self.hasAttribute('aria-controls') ) {
-        var ac = 'aria-controls';
 
-        /**
-         * Check for the presence of an href (if the element was a link),
-         * or check for a data-controls attribute. If one of these exist,
-         * get the current value and use it as the IDREF for the
-         * aria-controls attribute.
-         */
-        if ( self.hasAttribute('data-controls') ) {
-          self.setAttribute(ac, self.getAttribute('data-controls'));
-        }
-        else if ( self.hasAttribute('href') ) {
-          self.setAttribute(ac, self.getAttribute('href').split('#')[1]);
-        }
-
-        // clean up DOM
-        self.removeAttribute('data-controls');
-      } // if
-
+    const setupButton = function () {
+      if ( !el.hasAttribute('tabindex') && el.getAttribute('aria-disabled') !== 'true' ) {
+        el.tabIndex = 0;
+      }
+      if ( el.hasAttribute('tabindex') && el.getAttribute('aria-disabled') === 'true' ) {
+        el.removeAttribute('tabindex');
+      }
+      if ( el.hasAttribute('aria-pressed') ) isToggle = true;
       /**
        * If an element started off as a <a href...> remove the href attribute.
        * Buttons should not return a context menu for links, if right clicked.
        */
-      self.removeAttribute('href');
-
-      /**
-       * Check to see if this is meant to be a toggle button.
-       *
-       * If the element has an aria-pressed already, move on. If it doesn't,
-       * check for the presence of a data-pressed attribute. If one exists,
-       * add an aria-pressed with the appropriate value.
-       */
-      if ( !self.hasAttribute('aria-pressed') ) {
-        var ap = 'aria-pressed';
-
-        if ( self.hasAttribute('data-pressed') && self.getAttribute('data-pressed') === 'true' ) {
-          self.setAttribute(ap, 'true');
-        }
-        else if ( self.hasAttribute('data-pressed') ) {
-          self.setAttribute(ap, 'false');
-        }
-
-        // clean up DOM
-        self.removeAttribute('data-pressed');
-      } // if
-
-      /**
-       * Run event listeners for each instance.
-       */
-      self.addEventListener('keypress', ARIAbuttons.keyEvents, false);
-      self.addEventListener('click', ARIAbuttons.ariaPressed, false);
-    } // for(widget.length)
-  }; // ARIAbuttons.create()
+      el.removeAttribute('href');
+    };
 
 
-  /**
-   * Keyboard Controls for the 'Buttons'
-   */
-  ARIAbuttons.keyEvents = function ( e ) {
-    var keyCode = e.keyCode || e.which;
+    const toggleEvent = function ( e ) {
+      if ( isToggle ) {
+        el.setAttribute('aria-pressed', el.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      }
+    };
 
-    switch ( keyCode ) {
-      // enter or space
-      case 32:
-      case 13:
-        e.preventDefault();
-        e.target.click();
-        break;
 
-      default:
-        break;
+    const keyEvents = function ( e ) {
+      const keyCode = e.keyCode || e.which;
+
+      switch ( keyCode ) {
+        case 32:
+        case 13:
+          e.preventDefault();
+          this.click();
+          break;
+
+        default:
+          break;
+      }
     }
-  }; // ARIAbuttons.keyEvents();
-
-  /**
-   * Toggle the value of aria-pressed.
-   */
-  ARIAbuttons.ariaPressed = function ( e ) {
-    e.preventDefault();
-
-    if ( this.getAttribute('aria-pressed') === 'true' ) {
-      this.setAttribute('aria-pressed', 'false');
-    }
-    else {
-      this.setAttribute('aria-pressed', 'true');
-    }
-  } // ARIAbuttons.ariaPressed()
 
 
-  /**
-   * Initialize Buttons Functions.
-   * If expanding this script, place any other
-   * initialize functions within here.
-   */
-  ARIAbuttons.init = function () {
-    ARIAbuttons.create();
-  };
+    init.call( this );
+    return this;
+  }; // ariaButton()
 
-  // go go JavaScript
-  ARIAbuttons.init();
-
+  w.ariaButton = ariaButton;
 })( window, document );
