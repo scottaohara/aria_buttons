@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ...
 
+## 2.0.0 - 2021-12-11
+### Changed
+- Revised and simplified script. 
+- Removed use of `data-*` attributes. Script instead just looks for use of `role=button` and `aria-pressed`.
+- Added checks for `aria-disabled` and revise `tabindex` checks based on this attribute.
+
 ## 1.1.0 - 2018-08-26
 ### Changed
 - Remove `href` attributes from links that have been converted to `role=button`. Doing so will ensure that a link context menu won't appear if someone right clicks on a "button."
@@ -32,7 +38,7 @@ All notable changes to this project will be documented in this file.
 
 ## 0.2.0 - 2016-12-17
 ### Fixed
-- Needed a `preventdefault()` for link buttons (e.g. `a href`, to keep focus on the element when triggered.
+- Needed a `preventdefault()` for link buttons (e.g., `a href`, to keep focus on the element when triggered).
 
 
 ## 0.1.0 - 2016-11-26
